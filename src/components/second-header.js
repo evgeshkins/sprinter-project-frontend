@@ -2,7 +2,11 @@ import React from "react"
 
 class SecondHeader extends React.Component{
     render() {
-        return (<h2></h2>)
+        return (
+            <div className="bg-white col-span-7 row-span-1">
+
+            </div>
+        )
     }
 }
 
