@@ -15,9 +15,10 @@ class SecondHeader extends React.Component{
         }));
     }
     render() {
+        const { title } = this.props
         return (
             <div className="bg-white col-span-7 row-span-1 pl-3 pt-1 relative">
-                <div>Название раздела (кликни на название любого раздела на header'е)</div>
+                <div>{ title }</div>
                 <button className="flex items-center" onClick={this.toggleDropdown}>
                     Настройки
                     <svg className="pt-1 h-5 w-5 flex-none text-black" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
