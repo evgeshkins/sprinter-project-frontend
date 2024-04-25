@@ -1,6 +1,23 @@
 import React from "react"
 
 class Header extends React.Component {
+
+    constructor(props) {
+        super(props);
+        // Инициализация состояний для двух dropdown
+        this.state = {
+          isPostsDropdownOpen: false,
+          isCompetitionsDropdownOpen: false,
+        };
+      }
+    
+      // Функция для переключения состояния dropdown
+      toggleDropdown = (dropdown) => {
+        this.setState((prevState) => ({
+          [dropdown]: !prevState[dropdown]
+        }));
+    }
+    
     render() {
         return (
             <header class="bg-blue-500 sm:h-12 md:h-12 lg:h-12 xl:h-12">
@@ -14,22 +31,32 @@ class Header extends React.Component {
                     <div class="hidden lg:flex lg:gap-x-12" >
                         <a href="#" class="text-sm font-semibold leading-6 text-white">Моя лента</a>
                         <div class="relative">
-                            <button type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white" aria-expanded="false">
+                            <button type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white"
+                            onClick={() => this.toggleDropdown('isPostsDropdownOpen')} aria-expanded={this.state.isPostsDropdownOpen}>
                                 Посты
                                 <svg class="h-5 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            {/* Dropdown is here*/}
+                            {this.state.isPostsDropdownOpen && (
+              <div className="absolute z-10 mt-2 w-56 bg-white rounded-md shadow-lg">
+                <a href="#Заглушка" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Заглушка</a>
+              </div>
+            )}
                         </div>
                         <div class="relative">
-                            <button type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white" aria-expanded="false">
+                            <button type="button" class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white"
+                            onClick={() => this.toggleDropdown('isCompetitionsDropdownOpen')} aria-expanded={this.state.isCompetitionsDropdownOpen}>
                                 Соревнования
                                 <svg class="h-5 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5 a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            {/* Dropdown is here*/}
+                            {this.state.isCompetitionsDropdownOpen && (
+              <div className="absolute z-10 mt-2 w-56 bg-white rounded-md shadow-lg">
+                <a href="#Заглушка" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Заглушка</a>
+              </div>
+            )}
                         </div>
 
                     </div>
