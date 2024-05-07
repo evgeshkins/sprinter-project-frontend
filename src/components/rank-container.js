@@ -1,13 +1,11 @@
 import React from "react"
 
-class RankContainer extends React.Component{
-    render() {
-        return (
-            <div className="row-start-1 row-span-10 col-start-8 col-span-3 bg-white ml-3">
+const RankContainer = () => {
+    return (
+        <div className="row-start-1 row-span-10 col-start-8 col-span-3 bg-white ml-3">
                 
-            </div>
-        )
-    }
-}
+        </div>
+    );
+};
 
-export default RankContainer
+export default RankContainer;

@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 
-const SectionContext = createContext()
+export const SectionContext = createContext()
 
 export const useSection = () => useContext(SectionContext);
 
-export const SectionProvider = ({ child }) => {
+export const SectionProvider = ({ children }) => {
     const [currentSection, setCurrentSection] =
         useState("Название раздела (кликни на название любого раздела на header'е)")
     
@@ -13,7 +13,7 @@ export const SectionProvider = ({ child }) => {
     }
     return (
         <SectionContext.Provider value={{ currentSection, changeSection }}>
-            {child}
+            {children}
         </SectionContext.Provider>
     )
 }
