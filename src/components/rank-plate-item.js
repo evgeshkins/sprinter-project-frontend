@@ -12,5 +12,6 @@ const RankPlateItem = ({ author, content }) => {
         </div>
     );
 };
+ 
 
 export default RankPlateItem;
