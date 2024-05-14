@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sprinter-project/static/css/main.0b72099f.css",
+    "main.js": "/sprinter-project/static/js/main.9e5e7200.js",
+    "index.html": "/sprinter-project/index.html",
+    "main.0b72099f.css.map": "/sprinter-project/static/css/main.0b72099f.css.map",
+    "main.9e5e7200.js.map": "/sprinter-project/static/js/main.9e5e7200.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0b72099f.css",
+    "static/js/main.9e5e7200.js"
+  ]
+}
