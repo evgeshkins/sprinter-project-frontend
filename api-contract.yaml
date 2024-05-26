@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Форум-платформа Sprinter (лента постов) OpenAPI спецификация
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/sprinter_api/v1/
+    description: Dev server
+paths:
+  /:
+    get:
+      summary: Метод получения списка постов
+      tags:
+        - Посты
+      operationId: getAllPosts
+      responses:
+        '200':
+          description: Успешный ответ со списком постов
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Posts"
+        'default':
+          description: "Всё нестандартное"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод создания поста
+      tags:
+        - Посты
+      operationId: createPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        '200':
+          description: Успешный ответ c одним постом
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        'default':
+          description: "Всё нестандартное"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  //{post_id}:
+    get:
+      summary: Метод получения поста по идентификатору
+      tags:
+        - Посты
+      operationId: getPostById
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          description: Идентификатор поста
+          schema:
+            type: string
+          example: 1
+      responses:
+        '200':
+          description: Успешный ответ c одним постом
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        'default':
+          description: "Всё нестандартное"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Метод удаления поста по идентификатору
+      tags:
+        - Посты
+      operationId: deletePostById
+      parameters:
+        - name: post_id
+          in: path
+          required: true
+          description: Идентификатор поста
+          schema:
+            type: string
+          example: 1
+      responses:
+        '200':
+          description: Успешное удаление
+          content:
+            application/json: {}
+        'default':
+          description: "Всё нестандартное"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"   
+              
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+      - title
+      - text
+      - picture
+      - likes_count
+      - create_date
+      - comments
+      properties:
+        post_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Я пробежал свой первый марафон! История подготовки
+        text:
+          type: string
+          example: Итак, история моей подготовки не проста ...
+        picture:
+          type: string
+          example: ссылка на картинку
+        likes_count:
+          type: integer
+          example: 1
+        create_date:
+          type: string
+          format: date
+          example: 2024-05-23
+        comments:
+          type: array
+          items:
+            type: string
+          example: ["круто", "классно"]
+          description: Комментарии к посту
+    Posts:
+      type: array
+      items:
+        $ref: "#/components/schemas/Post"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      
+      
+      
+        
