@@ -1,17 +1,22 @@
-import React from "react"
-import Header from "./components/header"
-import MainContainer from './components/main-container'
-import { SectionProvider } from "./section-context"
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import Home from "./home.js"
+import Auth from "./auth.js";
 
-const App = () => {
+export default function App() {
     return (
-        <div className="h-screen w-full">
-            <SectionProvider>
-                <Header />
-                <MainContainer />
-            </SectionProvider>
-        </div>
+        
+      <Router basename="/">
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/auth" element = {<Auth />} />
+            </Routes>
+        </Router>
+    
     );
-};
-
-export default App;
+  }
+  
