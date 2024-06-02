@@ -10,6 +10,7 @@ const AuthPage = () => {
     const [password, setPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged') === 'true');
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -32,15 +33,16 @@ const AuthPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+    
         // Отправка данных на сервер для аутентификации пользователя
         try {
             const response = await axios.post('https://?', { email, password });
             alert('Вход выполнен!');
-
+    
             // Сохранение токена доступа в localStorage или Cookies
             localStorage.setItem('token', response.data.token);
-
+    
+            setIsLogged(true);
             navigate('/');
         } catch (error) {
             alert('Неправильный email или пароль.');
@@ -68,49 +70,58 @@ const AuthPage = () => {
 
             <div className="bg-blue-500 p-6 rounded-lg shadow-lg text-white">
                 <div className="text-center">
-                    {!isSignUp ? (
-                        <form onSubmit={handleLogin} className="space-y-4">
-                            <h2>Авторизация</h2>
-                            <label htmlFor="email" style={{ color: "black" }}>Email:</label>
-                            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
-                            <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
-                            <div className="relative">
-                                <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
-                                <span
-                                    onClick={toggleShowPassword}
-                                    className="absolute top-2 right-3 cursor-pointer"
-                                >
-                                    {showPassword ? <FaEyeSlash color="black" /> : <FaEye color="black" />}
-                                </span>
-                            </div>
-                            <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Войти</button>
-                        </form>
-                    ) : (
-                        <form onSubmit={handleSignup} className="space-y-4">
-                            <h2>Регистрация</h2>
-                            <label htmlFor="email" style={{ color: "black" }}>Email:</label>
-                            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
-                            <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
-                            <div className="relative">
-                                <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
-                                <span
-                                    onClick={toggleShowPassword}
-                                    className="absolute top-2 right-3 cursor-pointer"
-                                >
-                                    {showPassword ? <FaEyeSlash color="black" /> : <FaEye color="black" />}
-                                </span>
-                            </div>
-                            <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Зарегистрироваться</button>
-                        </form>
-                    )}
-                    {emailExists && (
-                        <div className="absolute bottom-2 right-2 bg-red-500 text-white p-2 rounded">
-                            Данный email уже используется!
+                    {isLogged ? (
+                        <div>
+                            <button onClick={() => { setIsLogged(false); localStorage.removeItem('token'); }} className="w-full bg-red-700 text-white rounded py-2">Выйти</button>
+                            <Link to="/create-post" className="w-full bg-green-700 text-white rounded py-2 mt-4">Создать пост</Link>
                         </div>
+                    ) : (
+                        <>
+                            {!isSignUp ? (
+                                <form onSubmit={handleLogin} className="space-y-4">
+                                    <h2>Авторизация</h2>
+                                    <label htmlFor="email" style={{ color: "black" }}>Email:</label>
+                                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
+                                    <div className="relative">
+                                        <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                        <span
+                                            onClick={toggleShowPassword}
+                                            className="absolute top-2 right-3 cursor-pointer"
+                                        >
+                                            {showPassword ? <FaEyeSlash color="black" /> : <FaEye color="black" />}
+                                        </span>
+                                    </div>
+                                    <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Войти</button>
+                                </form>
+                            ) : (
+                                <form onSubmit={handleSignup} className="space-y-4">
+                                    <h2>Регистрация</h2>
+                                    <label htmlFor="email" style={{ color: "black" }}>Email:</label>
+                                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
+                                    <div className="relative">
+                                        <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                        <span
+                                            onClick={toggleShowPassword}
+                                            className="absolute top-2 right-3 cursor-pointer"
+                                        >
+                                            {showPassword ? <FaEyeSlash color="black" /> : <FaEye color="black" />}
+                                        </span>
+                                    </div>
+                                    <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Зарегистрироваться</button>
+                                </form>
+                            )}
+                            {emailExists && (
+                                <div className="absolute bottom-2 right-2 bg-red-500 text-white p-2 rounded">
+                                    Данный email уже используется!
+                                </div>
+                            )}
+                            <button onClick={() => setIsSignUp(!isSignUp)} className="text-center mt-4 py-2 w-full rounded bg-blue-700 text-white">
+                                {isSignUp ? 'Вход' : 'Регистрация'}
+                            </button>
+                        </>
                     )}
-                    <button onClick={() => setIsSignUp(!isSignUp)} className="text-center mt-4 py-2 w-full rounded bg-blue-700 text-white">
-                        {isSignUp ? 'Вход' : 'Регистрация'}
-                    </button>
                 </div>
             </div>
         </div>
