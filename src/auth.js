@@ -1,11 +1,12 @@
-import React from "react"
+import React from 'react';
+import AuthPage from './components/authpage';
 
-const Auth = () => {
+const AuthPageRoute = () => {
     return (
-        <div className="h-screen w-full">
-            hi, go auth!
+        <div>
+            <AuthPage />
         </div>
     );
 };
 
-export default Auth;
+export default AuthPageRoute;
