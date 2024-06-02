@@ -1,11 +1,12 @@
-import React from "react"
+import React from 'react';
+import CreatePost from './components/createpost';
 
-const Auth = () => {
+const AuthPageRoute = () => {
     return (
-        <div className="h-screen w-full">
-            Our post for sprinter
+        <div>
+            <CreatePost />
         </div>
     );
 };
 
-export default Auth;
+export default AuthPageRoute;

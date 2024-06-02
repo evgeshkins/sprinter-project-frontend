@@ -34,7 +34,7 @@ const Header = ({}) => {
           <Link to={isAuthenticated ? '/' : '/auth'} className="text-sm font-semibold leading-6 text-white ml-10 mr-3" onClick={handleLogout}>
             {isAuthenticated ? 'Выйти' : 'Войти'} <span aria-hidden="true">&rarr;</span>
           </Link>
-          <Link to="/create-post" className="text-sm font-semibold leading-6 text-white ml-10 mr-3">Создать пост</Link>
+          <Link to="/post" className="text-sm font-semibold leading-6 text-white ml-10 mr-3">Создать пост</Link>
         </div>
       </nav>
     </header>
