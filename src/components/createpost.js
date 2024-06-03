@@ -21,7 +21,7 @@ const CreatePost = () => {
         formData.append('image', image); 
 
         try {
-            const response = await axios.post('http://?', formData, {
+            const response = await axios.post('api/v1/post-create/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`

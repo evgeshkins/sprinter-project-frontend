@@ -22,7 +22,7 @@ const NewsPlate = () => {
     return (
         <div className="bg-blue-400 p-4 mb-20">
             {newsData.map((news, index) => (
-                <NewsPlateItem key={index} author={news.author} id={news.id} title={news.title} content={news.small_text} likes_count={news.likes_count} />
+                <NewsPlateItem key={index} author={news.user} id={news.post_id} title={news.title} content={news.small_text} likes_count={news.likes_count} />
             ))}
         </div>
     );
