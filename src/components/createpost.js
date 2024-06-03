@@ -18,7 +18,7 @@ const CreatePost = () => {
         formData.append('title', title);
         formData.append('short_description', shortDescription);
         formData.append('full_description', fullDescription);
-        formData.append('image', image);
+        formData.append('image', image); 
 
         try {
             const response = await axios.post('http://?', formData, {
