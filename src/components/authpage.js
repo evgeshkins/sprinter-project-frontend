@@ -20,7 +20,7 @@ const AuthPage = () => {
             return;
         }
 
-        axios.post('http://localhost:8000/api/v1/signup/', { login, password})
+        axios.post('http://localhost:8000/api/v1/signup/', { login, password, last_name, first_name, middle_name})
             .then(response => {
                 alert('Регистрация прошла успешно!');
                 setIsSignUp(false);

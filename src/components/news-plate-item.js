@@ -44,8 +44,10 @@ const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
 
     return (
         <div className="bg-white border-b p-4" style={{ marginBottom: '10px' }}>
-            <h2 className="text-lg font-bold">{author}</h2>
-            <Link to={`/post/${id}`}>
+            <h1 className="text-lg font-bold">
+                <em>{author.last_name} {author.first_name} {author.middle_name}</em>
+            </h1>            
+            <Link to={`/viewpost/${id}`}>
                 <h2 className="text-lg font-bold">{title}</h2>
             </Link>
             <p className="text-sm">{content}</p>
