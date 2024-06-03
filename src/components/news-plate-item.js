@@ -6,7 +6,7 @@ import { VKShareButton, TelegramShareButton, WhatsappShareButton } from 'react-s
 import { VKIcon, TelegramIcon, WhatsappIcon } from 'react-share';
 import axios from "axios";
 
-const NewsPlateItem = ({ id, title, content, likes_count }) => {
+const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(likes_count);
     const [showSharingOptions, setShowSharingOptions] = useState(false);
@@ -44,6 +44,7 @@ const NewsPlateItem = ({ id, title, content, likes_count }) => {
 
     return (
         <div className="bg-white border-b p-4" style={{ marginBottom: '10px' }}>
+            <h2 className="text-lg font-bold">{author}</h2>
             <Link to={`/post/${id}`}>
                 <h2 className="text-lg font-bold">{title}</h2>
             </Link>
