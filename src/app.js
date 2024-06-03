@@ -7,6 +7,7 @@ import {
 import Home from "./home.js";
 import Auth from "./auth.js";
 import Post from "./post.js";
+import ViewPost from "./viewpost";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element = {<Auth />} />
                 <Route path="/post" element = {<Post />} />
+                <Route path="/viewpost" element = {<ViewPost />} />
             </Routes>
         </Router>
     
