@@ -52,28 +52,28 @@ const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
                 <h2 className="text-lg font-bold">{title}</h2>
             </Link>
             <p className="text-sm">{content}</p>
-            
-            <div className="flex items-left space-x-5">
-                <button onClick={handleLike} className={`flex items-center ${liked ? 'text-red-500' : ''}`}>
-                    <FaThumbsUp /> {likes}
-                </button>
-                <button><FaComment /></button>
-                <button onClick={handleToggleSharingOptions}><IoShareSocial /></button>
+            <div className="flex items-left space-y-10">
+                <div className="flex items-left space-x-6">
+                    <button onClick={handleLike} className={`flex items-center  ${liked ? 'text-red-500' : ''}`}>
+                        <FaThumbsUp /> {likes}
+                    </button>
+                    <button><FaComment /></button>
+                    <button onClick={handleToggleSharingOptions}><IoShareSocial /></button>
+                </div>
             </div>
-            
             {showSharingOptions && (
                 <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-60">
                     <div ref={modalRef} className="bg-white p-4 rounded-md">
                         <button onClick={handleToggleSharingOptions} className="absolute top-2 right-2 text-gray-500"><FaTimes /></button>
-                        <h3 className="text-lg font-bold mb-4">{id}Поделиться:</h3>
+                        <h3 className="text-lg font-bold mb-4">Поделиться:</h3>
                         <div className="flex items-center justify-center space-x-3">
-                            <VKShareButton url={`http://example.com/post/${id}`} quote={title}>
+                            <VKShareButton url={`http://localhost:8000/api/v1/posts/${id}`} quote={title}>
                                 <VKIcon size={32} round />
                             </VKShareButton>
-                            <TelegramShareButton url={`http://example.com/post/${id}`} title={title}>
+                            <TelegramShareButton url={`http://localhost:8000/api/v1/posts/${id}`} title={title}>
                                 <TelegramIcon size={32} round />
                             </TelegramShareButton>
-                            <WhatsappShareButton url={`http://example.com/post/${id}`} title={title} separator="::">
+                            <WhatsappShareButton url={`http://localhost:8000/api/v1/posts/${id}`} title={title} separator="::">
                                 <WhatsappIcon size={32} round />
                             </WhatsappShareButton>
                         </div>

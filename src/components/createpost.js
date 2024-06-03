@@ -49,7 +49,7 @@ const CreatePost = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-200">
+        <div className="flex justify-center items-center h-screen ">
             <div className="bg-blue-500 p-6 rounded-lg shadow-lg text-white max-w-md w-full">
                 <h2 className="text-2xl text-center mb-4 font-bold"> Создание поста</h2>
 
