@@ -23,7 +23,7 @@ const NewsPlateItem = ({ id, title, content, likes_count }) => {
         } catch (error) {
             console.error('Error submitting like:', error);
         }
-    };
+    }; 
 
     const handleToggleSharingOptions = () => {
         setShowSharingOptions((prevShow) => !prevShow);
