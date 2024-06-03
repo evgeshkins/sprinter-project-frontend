@@ -14,16 +14,14 @@ const NewsPlateItem = ({ id, title, content, likes_count }) => {
 
     const handleLike = async () => {
         setLiked(!liked);
-        const newLikes = liked ? likes - 1 : likes + 1;
-        setLikes(newLikes);
 
         try {
             await axios.post(`/api/posts/${id}/like/`);
+            const newLikes = liked ? likes - 1 : likes + 1;
+            setLikes(newLikes);
             console.log('Like submitted successfully!');
         } catch (error) {
             console.error('Error submitting like:', error);
-            setLikes(liked ? likes + 1 : likes - 1);
-            setLiked(!liked);
         }
     };
 
