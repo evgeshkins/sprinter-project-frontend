@@ -6,21 +6,21 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const AuthPage = () => {
     const navigate = useNavigate();
     const [isSignUp, setIsSignUp] = useState(false);
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const [emailExists, setEmailExists] = useState(false);
+    const [loginExists, setLoginExists] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged') === 'true');
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
-
-        if (isEmailRegistered(email)) {
-            setEmailExists(true);
+        const registered = await isLoginRegistered(login);  // Добавление await
+        if (registered) {
+            setLoginExists(true);
             return;
         }
 
-        axios.post('https://?', { email, password })
+        axios.post('http://localhost:8000/api/v1/signup/', { login, password})
             .then(response => {
                 alert('Регистрация прошла успешно!');
                 setIsSignUp(false);
@@ -36,7 +36,7 @@ const AuthPage = () => {
     
         // Отправка данных на сервер для аутентификации пользователя
         try {
-            const response = await axios.post('https://?', { email, password });
+            const response = await axios.post('https://?', { login, password });
             alert('Вход выполнен!');
     
             // Сохранение токена доступа в localStorage или Cookies
@@ -50,11 +50,12 @@ const AuthPage = () => {
         }
     };
 
-    const isEmailRegistered = async (email) => {
+    const isLoginRegistered = async(login) => {
         try {
-            const response = await axios.post('https://?', { email });
+            const response = await axios.post('http://localhost:8000/api/v1/check-login/', { login });
             return response.data.exists;
         } catch (error) {
+            alert("Что-то пошло не так")
             console.error(error);
             return false;
         }
@@ -81,7 +82,7 @@ const AuthPage = () => {
                                 <form onSubmit={handleLogin} className="space-y-4">
                                     <h2>Авторизация</h2>
                                     <label htmlFor="email" style={{ color: "black" }}>Email:</label>
-                                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <input type="email" id="email" value={login} onChange={(e) => setLogin(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
                                     <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
                                     <div className="relative">
                                         <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
@@ -98,7 +99,7 @@ const AuthPage = () => {
                                 <form onSubmit={handleSignup} className="space-y-4">
                                     <h2>Регистрация</h2>
                                     <label htmlFor="email" style={{ color: "black" }}>Email:</label>
-                                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <input type="email" id="email" value={login} onChange={(e) => setLogin(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
                                     <label htmlFor="password" style={{ color: "black" }}>Пароль:</label>
                                     <div className="relative">
                                         <input type={showPassword ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
@@ -112,7 +113,7 @@ const AuthPage = () => {
                                     <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Зарегистрироваться</button>
                                 </form>
                             )}
-                            {emailExists && (
+                            {loginExists && (
                                 <div className="absolute bottom-2 right-2 bg-red-500 text-white p-2 rounded">
                                     Данный email уже используется!
                                 </div>
