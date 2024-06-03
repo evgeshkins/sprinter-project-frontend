@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaThumbsUp, FaComment, FaShare } from 'react-icons/fa';
+import { FaThumbsUp, FaComment, FaTimes } from 'react-icons/fa';
+import { IoShareSocial } from 'react-icons/io5';
+import { VKShareButton, TelegramShareButton, WhatsappShareButton } from 'react-share';
+import { VKIcon, TelegramIcon, WhatsappIcon } from 'react-share';
 
 const NewsPlateItem = ({ id, title, content, likes_count }) => {
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(likes_count);
+    const [showSharingOptions, setShowSharingOptions] = useState(false);
+    const modalRef = useRef(null);
 
     const handleLike = () => {
         setLiked(!liked);
-        setLikes(liked ? likes - 1 : likes + 1);
+        setLikes((prevLikes) => (liked ? prevLikes - 1 : prevLikes + 1));
     };
 
-    const handleComment = () => {
-        // Логика обработки комментария
+    const handleToggleSharingOptions = () => {
+        setShowSharingOptions((prevShow) => !prevShow);
     };
 
-    const handleShare = () => {
-        // Логика обработки шаринга
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setShowSharingOptions(false);
+        }
     };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="bg-white border-b p-4" style={{ marginBottom: '10px' }}>
@@ -26,13 +40,33 @@ const NewsPlateItem = ({ id, title, content, likes_count }) => {
             </Link>
             <p className="text-sm">{content}</p>
             
-            <div class="flex items-left space-x-5">
+            <div className="flex items-left space-x-5">
                 <button onClick={handleLike} className={`flex items-center ${liked ? 'text-red-500' : ''}`}>
                     <FaThumbsUp /> {likes}
                 </button>
-                <button onClick={handleComment}><FaComment /></button>
-                <button onClick={handleShare}><FaShare /></button>
+                <button><FaComment /></button>
+                <button onClick={handleToggleSharingOptions}><IoShareSocial /></button>
             </div>
+            
+            {showSharingOptions && (
+                <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-60">
+                    <div ref={modalRef} className="bg-white p-4 rounded-md">
+                        <button onClick={handleToggleSharingOptions} className="absolute top-2 right-2 text-gray-500"><FaTimes /></button>
+                        <h3 className="text-lg font-bold mb-4">Поделиться:</h3>
+                        <div className="flex items-center justify-center space-x-3">
+                            <VKShareButton url={`http://example.com/post/${id}`} quote={title}>
+                                <VKIcon size={32} round />
+                            </VKShareButton>
+                            <TelegramShareButton url={`http://example.com/post/${id}`} title={title}>
+                                <TelegramIcon size={32} round />
+                            </TelegramShareButton>
+                            <WhatsappShareButton url={`http://example.com/post/${id}`} title={title} separator="::">
+                                <WhatsappIcon size={32} round />
+                            </WhatsappShareButton>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

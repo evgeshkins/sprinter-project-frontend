@@ -3,14 +3,22 @@ import { Link } from "react-router-dom";
 import { SectionContext } from "../section-context";
 import HeaderButton from "./header-button";
 
-const Header = ({}) => {
+const Header = () => {
   const { changeSection } = useContext(SectionContext);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isLogged') === 'true');
-
+  const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('isLogged');
     setIsAuthenticated(false);
+  };
+
+  const handleCreatePost = () => {
+    if (isAuthenticated) {
+      window.location.replace("/post");
+    } else {
+      setShowModal(true);
+    }
   };
 
   return (
@@ -23,7 +31,7 @@ const Header = ({}) => {
           </Link>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <button className="text-sm font-semibold leading-6 text-white" onClick={() => changeSection("Моя лента")}>Моя лента</button>
+        <Link to="/"><button className="text-sm font-semibold leading-6 text-white" onClick={() => changeSection("Моя лента")}>Моя лента</button></Link>
           <HeaderButton sectionName="Посты" buttonText="Понравившиеся" />
           <HeaderButton sectionName="Соревнования" buttonText="Соревнования" />
         </div>
@@ -34,9 +42,17 @@ const Header = ({}) => {
           <Link to={isAuthenticated ? '/' : '/auth'} className="text-sm font-semibold leading-6 text-white ml-10 mr-3" onClick={handleLogout}>
             {isAuthenticated ? 'Выйти' : 'Войти'} <span aria-hidden="true">&rarr;</span>
           </Link>
-          <Link to="/post" className="text-sm font-semibold leading-6 text-white ml-10 mr-3">Создать пост</Link>
+          <button onClick={handleCreatePost} className="text-sm font-semibold leading-6 text-white ml-10 mr-3">Создать пост</button>
         </div>
       </nav>
+      {showModal && (
+        <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
+          <div className="bg-white p-4 rounded-md">
+            <p className="text-lg font-bold mb-4">Для создания поста необходимо авторизоваться.</p>
+            <button onClick={() => setShowModal(false)} className="text-blue-500">Закрыть</button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
