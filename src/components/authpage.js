@@ -41,7 +41,7 @@ const AuthPage = () => {
     
             // Сохранение токена доступа в localStorage или Cookies
             localStorage.setItem('token', response.data.token);
-    
+            localStorage.isLogged = true
             setIsLogged(true);
             navigate('/');
         } catch (error) {

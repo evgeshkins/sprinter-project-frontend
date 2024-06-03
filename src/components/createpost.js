@@ -50,8 +50,6 @@ const CreatePost = () => {
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-200">
-            <Link to="/" className="fixed top-2 left-2 text-blue-700 px-4 py-2 rounded border border-blue-700">Назад</Link>
-
             <div className="bg-blue-500 p-6 rounded-lg shadow-lg text-white">
                 <h2 className="text-center mb-4">Создание поста</h2>
 
