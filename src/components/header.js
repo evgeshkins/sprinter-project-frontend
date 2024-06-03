@@ -24,7 +24,7 @@ const Header = ({}) => {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           <button className="text-sm font-semibold leading-6 text-white" onClick={() => changeSection("Моя лента")}>Моя лента</button>
-          <HeaderButton sectionName="Посты" buttonText="Посты" />
+          <HeaderButton sectionName="Посты" buttonText="Понравившиеся" />
           <HeaderButton sectionName="Соревнования" buttonText="Соревнования" />
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
