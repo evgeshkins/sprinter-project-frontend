@@ -36,7 +36,7 @@ const AuthPage = () => {
     
         // Отправка данных на сервер для аутентификации пользователя
         try {
-            const response = await axios.post('https://?', { login, password });
+            const response = await axios.post('http://localhost:8000/api/v1/login/', { login, password });
             alert('Вход выполнен!');
     
             // Сохранение токена доступа в localStorage или Cookies
