@@ -4,17 +4,26 @@ import { FaThumbsUp, FaComment, FaTimes } from 'react-icons/fa';
 import { IoShareSocial } from 'react-icons/io5';
 import { VKShareButton, TelegramShareButton, WhatsappShareButton } from 'react-share';
 import { VKIcon, TelegramIcon, WhatsappIcon } from 'react-share';
+import axios from "axios";
 
 const NewsPlateItem = ({ id, title, content, likes_count }) => {
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState(likes_count);
     const [showSharingOptions, setShowSharingOptions] = useState(false);
     const modalRef = useRef(null);
-
-    const handleLike = () => {
+ 
+    const handleLike = async () => {
         setLiked(!liked);
-        setLikes((prevLikes) => (liked ? prevLikes - 1 : prevLikes + 1));
-    };
+        try {
+            const response = await axios.post(`/api/posts/${id}/like/`, { liked });
+            const newLikes = liked ? likes - 1 : likes + 1;
+            setLiked(!liked);
+            setLikes(newLikes);
+            console.log('Like submitted successfully!');
+        } catch (error) {
+            console.error('Error submitting like:', error);
+        }
+    }; 
 
     const handleToggleSharingOptions = () => {
         setShowSharingOptions((prevShow) => !prevShow);

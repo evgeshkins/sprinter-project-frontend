@@ -38,7 +38,7 @@ const AuthPage = () => {
         try {
             const response = await axios.post('http://localhost:8000/api/v1/login/', { login, password });
             alert('Вход выполнен!');
-    
+     
             // Сохранение токена доступа в localStorage или Cookies
             localStorage.setItem('token', response.data.token);
             localStorage.isLogged = true
