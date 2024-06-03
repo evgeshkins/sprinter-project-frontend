@@ -11,7 +11,7 @@ const NewsPlateItem = ({ id, title, content, likes_count }) => {
     const [likes, setLikes] = useState(likes_count);
     const [showSharingOptions, setShowSharingOptions] = useState(false);
     const modalRef = useRef(null);
-
+ 
     const handleLike = async () => {
         setLiked(!liked);
         try {
