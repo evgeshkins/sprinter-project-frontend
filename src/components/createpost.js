@@ -4,41 +4,41 @@ import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
-    const [shortDescription, setShortDescription] = useState('');
-    const [fullDescription, setFullDescription] = useState('');
-    const [image, setImage] = useState(null);
+    const [small_text, setShortDescription] = useState('');
+    const [full_text, setFullDescription] = useState('');
+    const [image_src, setImage] = useState(null);
     const [submitSuccess, setSubmitSuccess] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user_id');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const formData = new FormData();
         formData.append('title', title);
-        formData.append('short_description', shortDescription);
-        formData.append('full_description', fullDescription);
-        formData.append('image', image); 
-
+        formData.append('small_text', small_text);
+        formData.append('full_text', full_text);
+        formData.append('image_src', "image.png");
+        formData.append('user', user);
         try {
-            const response = await axios.post('api/v1/post-create/', formData, {
+            const response = await axios.post('http://localhost:8000/api/v1/post-create/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
                 },
             });
-
+            
             setSubmitSuccess(true);
-
+    
             setTitle('');
             setShortDescription('');
             setFullDescription('');
             setImage(null);
-
+    
             navigate('/');
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
-
+    
             setSubmitSuccess(false);
         }
     };
@@ -51,7 +51,7 @@ const CreatePost = () => {
     return (
         <div className="flex justify-center items-center h-screen bg-gray-200">
             <div className="bg-blue-500 p-6 rounded-lg shadow-lg text-white max-w-md w-full">
-                <h2 className="text-2xl text-center mb-4 font-bold">Создание поста</h2>
+                <h2 className="text-2xl text-center mb-4 font-bold"> Создание поста</h2>
 
                 {submitSuccess === false && <p className="text-red-500 text-center mb-4">Ошибка при отправке данных. Попробуйте снова.</p>}
                 
@@ -63,12 +63,12 @@ const CreatePost = () => {
 
                     <div>
                         <label className="text-lg" htmlFor="shortDescription">Короткое описание:</label>
-                        <textarea id="shortDescription" value={shortDescription} onChange={(e) => setShortDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="3"></textarea>
+                        <textarea id="shortDescription" value={small_text} onChange={(e) => setShortDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="3"></textarea>
                     </div>
 
                     <div>
                         <label className="text-lg" htmlFor="fullDescription">Полное описание:</label>
-                        <textarea id="fullDescription" value={fullDescription} onChange={(e) => setFullDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="5"></textarea>
+                        <textarea id="fullDescription" value={full_text} onChange={(e) => setFullDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="5"></textarea>
                     </div>
 
                     <div>

@@ -3,7 +3,7 @@ import NewsPlate from "./news-plate";
 
 const PostsContainer = () => {
     return (
-        <div className="mt-3 row-span-9 col-span-7 bg-white">
+        <div className="row-span-9 col-span-7 bg-white">
             <NewsPlate />
         </div>
     );

@@ -11,11 +11,12 @@ const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
     const [likes, setLikes] = useState(likes_count);
     const [showSharingOptions, setShowSharingOptions] = useState(false);
     const modalRef = useRef(null);
+    const user = localStorage.getItem('user_id');
  
     const handleLike = async () => {
         setLiked(!liked);
         try {
-            const response = await axios.post(`/api/posts/${id}/like/`, { liked });
+            const response = await axios.post(`/api/posts/${id}/like/`, {user});
             const newLikes = liked ? likes - 1 : likes + 1;
             setLiked(!liked);
             setLikes(newLikes);
@@ -64,7 +65,7 @@ const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
                 <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-60">
                     <div ref={modalRef} className="bg-white p-4 rounded-md">
                         <button onClick={handleToggleSharingOptions} className="absolute top-2 right-2 text-gray-500"><FaTimes /></button>
-                        <h3 className="text-lg font-bold mb-4">Поделиться:</h3>
+                        <h3 className="text-lg font-bold mb-4">{id}Поделиться:</h3>
                         <div className="flex items-center justify-center space-x-3">
                             <VKShareButton url={`http://example.com/post/${id}`} quote={title}>
                                 <VKIcon size={32} round />
