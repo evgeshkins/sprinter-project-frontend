@@ -5,13 +5,13 @@ import Header from "./components/header"
 import { SectionProvider } from "./section-context"
 
 const ViewPostRoute = () => {
-    const { id } = useParams();
+    const { postId } = useParams();
 
     return (
         <div className="h-screen w-full">
             <SectionProvider>
                 <Header />
-                <FullPost postId={id} />
+                <FullPost postId={postId} />
             </SectionProvider>
         </div>
     );

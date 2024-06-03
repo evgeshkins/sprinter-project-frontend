@@ -33,11 +33,10 @@ const Header = () => {
         <div className="hidden lg:flex lg:gap-x-12">
         <Link to="/"><button className="text-sm font-semibold leading-6 text-white" onClick={() => changeSection("Моя лента")}>Моя лента</button></Link>
           <HeaderButton sectionName="Посты" buttonText="Понравившиеся" />
-          <HeaderButton sectionName="Соревнования" buttonText="Соревнования" />
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <div>
-            <input id="search" className="lu tn adu afa alm arp atf aub axu bnd boa bof bon cia cic mr-10 w-450 rounded-lg pl-3 h-6" placeholder="Поиск" type="search" name="search" />
+            {/* <input id="search" className="lu tn adu afa alm arp atf aub axu bnd boa bof bon cia cic mr-10 w-450 rounded-lg pl-3 h-6" placeholder="Поиск" type="search" name="search" /> */}
           </div>
           <Link to={isAuthenticated ? '/' : '/auth'} className="text-sm font-semibold leading-6 text-white ml-10 mr-3" onClick={handleLogout}>
             {isAuthenticated ? 'Выйти' : 'Войти'} <span aria-hidden="true">&rarr;</span>

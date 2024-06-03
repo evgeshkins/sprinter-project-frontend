@@ -13,7 +13,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/post" element={<Post />} />
-                <Route path="/viewpost/:id" element={<FullPost />} />
+                <Route path="/viewpost/:id" element={<ViewPost />} />
             </Routes>
         </Router>
     );

@@ -20,7 +20,7 @@ const AuthPage = () => {
             return;
         }
 
-        axios.post('http://localhost:8000/api/v1/signup/', { login, password, last_name, first_name, middle_name})
+        axios.post('http://localhost:8000/api/v1/signup/', { login, password})
             .then(response => {
                 alert('Регистрация прошла успешно!');
                 setIsSignUp(false);
@@ -40,7 +40,8 @@ const AuthPage = () => {
             alert('Вход выполнен!');
      
             // Сохранение токена доступа в localStorage или Cookies
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data.access);
+            localStorage.setItem('user_id',response.data.user_id)
             localStorage.isLogged = true
             setIsLogged(true);
             navigate('/');
@@ -53,7 +54,7 @@ const AuthPage = () => {
     const isLoginRegistered = async(login) => {
         try {
             const response = await axios.post('http://localhost:8000/api/v1/check-login/', { login });
-            return response.data.exists;
+            return response.data.exists;    
         } catch (error) {
             alert("Что-то пошло не так")
             console.error(error);

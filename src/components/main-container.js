@@ -8,7 +8,7 @@ const MainContainer = () => {
     const { currentSection } = useSection();
     return (
         <div className="div mx-32 h-full p-4 grid grid-cols-10 grid-rows-10" >
-            <SecondHeader />
+            {/* <SecondHeader /> */}
             <PostsContainer />
             <RankContainer />
         </div>
