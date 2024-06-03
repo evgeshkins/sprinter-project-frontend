@@ -5,9 +5,9 @@ import NewsPlateItem from "./news-plate-item";
 const NewsPlate = () => {
     // const [newsData, setNewsData] = useState([]);
     const newsData = [
-        {id:3, title: "Новость 1", content: "Содержание новости 1" },
-        {id:3, title: "Новость 2", content: "Содержание новости 2" },
-        {id:3, title: "Новость 3", content: "Содержание новости 3" },
+        {id:3, title: "Новость 1", content: "Содержание новости 1", likes_count:45 },
+        {id:3, title: "Новость 2", content: "Содержание новости 2", likes_count:4 },
+        {id:3, title: "Новость 3", content: "Содержание новости 3", likes_count:25 },
     ]
 
     // useEffect(() => {
@@ -26,7 +26,7 @@ const NewsPlate = () => {
     return (
         <div className="bg-blue-400 p-4 mb-20">
             {newsData.map((news, index) => (
-                <NewsPlateItem key={index} id={news.id} title={news.title} content={news.content} />
+                <NewsPlateItem key={index} id={news.id} title={news.title} content={news.content} likes_count={news.likes_count} />
             ))}
         </div>
     );
