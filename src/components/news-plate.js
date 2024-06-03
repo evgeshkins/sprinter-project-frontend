@@ -1,32 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import NewsPlateItem from "./news-plate-item";
 
 const NewsPlate = () => {
+    // const [newsData, setNewsData] = useState([]);
     const newsData = [
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-        { title: "Новость 1", content: "Содержание новости 1" },
-        { title: "Новость 2", content: "Содержание новости 2" },
-        { title: "Новость 3", content: "Содержание новости 3" },
-    ];
+        {id:3, title: "Новость 1", content: "Содержание новости 1" },
+        {id:3, title: "Новость 2", content: "Содержание новости 2" },
+        {id:3, title: "Новость 3", content: "Содержание новости 3" },
+    ]
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('http://your-django-backend-url/api/newsData/');
+    //             setNewsData(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []); // Run only on the initial render
 
     return (
         <div className="bg-blue-400 p-4 mb-20">
             {newsData.map((news, index) => (
-                <NewsPlateItem key={index} title={news.title} content={news.content} />
+                <NewsPlateItem key={index} id={news.id} title={news.title} content={news.content} />
             ))}
         </div>
     );
