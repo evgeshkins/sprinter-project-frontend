@@ -54,8 +54,9 @@ const NewsPlateItem = ({ id, author, title, content, likes_count }) => {
             <p className="text-sm">{content}</p>
             <div className="flex items-left space-y-10">
                 <div className="flex items-left space-x-6">
-                    <button onClick={handleLike} className={`flex items-center  ${liked ? 'text-red-500' : ''}`}>
-                        <FaThumbsUp /> {likes}
+                    <button onClick={handleLike} className={`flex items-center ${liked ? 'text-red-500' : ''}`}>
+                        <FaThumbsUp />
+                        <span className="ml-1">{likes}</span> {/* Added span with margin-left for spacing */}
                     </button>
                     <button><FaComment /></button>
                     <button onClick={handleToggleSharingOptions}><IoShareSocial /></button>

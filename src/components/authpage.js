@@ -8,19 +8,22 @@ const AuthPage = () => {
     const [isSignUp, setIsSignUp] = useState(false);
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [middlename, setMiddlename] = useState('');
+    const [firstname, setFirstname] = useState('');
     const [loginExists, setLoginExists] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged') === 'true');
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        const registered = await isLoginRegistered(login);  // Добавление await
+        const registered = await isLoginRegistered(login); 
         if (registered) {
             setLoginExists(true);
             return;
         }
 
-        axios.post('http://localhost:8000/api/v1/signup/', { login, password})
+        axios.post('http://localhost:8000/api/v1/signup/', { login, password, lastname, middlename, firstname })
             .then(response => {
                 alert('Регистрация прошла успешно!');
                 setIsSignUp(false);
@@ -34,15 +37,13 @@ const AuthPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
     
-        // Отправка данных на сервер для аутентификации пользователя
         try {
             const response = await axios.post('http://localhost:8000/api/v1/login/', { login, password });
             alert('Вход выполнен!');
      
-            // Сохранение токена доступа в localStorage или Cookies
             localStorage.setItem('token', response.data.access);
-            localStorage.setItem('user_id',response.data.user_id)
-            localStorage.isLogged = true
+            localStorage.setItem('user_id', response.data.user_id);
+            localStorage.setItem('isLogged', true); // Fix: Use 'setItem' method to set the value as true
             setIsLogged(true);
             navigate('/');
         } catch (error) {
@@ -51,12 +52,12 @@ const AuthPage = () => {
         }
     };
 
-    const isLoginRegistered = async(login) => {
+    const isLoginRegistered = async (login) => {
         try {
             const response = await axios.post('http://localhost:8000/api/v1/check-login/', { login });
             return response.data.exists;    
         } catch (error) {
-            alert("Что-то пошло не так")
+            alert('Что-то пошло не так');
             console.error(error);
             return false;
         }
@@ -111,6 +112,12 @@ const AuthPage = () => {
                                             {showPassword ? <FaEyeSlash color="black" /> : <FaEye color="black" />}
                                         </span>
                                     </div>
+                                    <label htmlFor="lastname" style={{ color: "black" }}>Фамилия:</label>
+                                    <input type="text" id="lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <label htmlFor="middlename" style={{ color: "black" }}>Отчество:</label>
+                                    <input type="text" id="middlename" value={middlename} onChange={(e) => setMiddlename(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
+                                    <label htmlFor="firstname" style={{ color: "black" }}>Имя:</label>
+                                    <input type="text" id="firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} className="w-full px-3 py-2 rounded border" style={{ color: "black" }} />
                                     <button type="submit" className="w-full bg-blue-700 text-white rounded py-2">Зарегистрироваться</button>
                                 </form>
                             )}

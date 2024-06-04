@@ -38,7 +38,6 @@ const CreatePost = () => {
             navigate('/');
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
-    
             setSubmitSuccess(false);
         }
     };
@@ -52,31 +51,60 @@ const CreatePost = () => {
         <div className="flex justify-center items-center h-screen ">
             <div className="bg-blue-500 p-6 rounded-lg shadow-lg text-white max-w-md w-full">
                 <h2 className="text-2xl text-center mb-4 font-bold"> Создание поста</h2>
-
-                {submitSuccess === false && <p className="text-red-500 text-center mb-4">Ошибка при отправке данных. Попробуйте снова.</p>}
-                
+                {submitSuccess === false && (
+                    <p className="text-red-500 text-center mb-4">Ошибка при отправке данных. Попробуйте снова.</p>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="text-lg" htmlFor="title">Заголовок:</label>
-                        <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" />
+                        <input
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="w-full px-3 py-2 rounded border mt-1 text-black" // Add class text-black
+                        />
                     </div>
 
                     <div>
                         <label className="text-lg" htmlFor="shortDescription">Короткое описание:</label>
-                        <textarea id="shortDescription" value={small_text} onChange={(e) => setShortDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="3"></textarea>
+                        <textarea
+                            id="shortDescription"
+                            value={small_text}
+                            onChange={(e) => setShortDescription(e.target.value)}
+                            className="w-full px-3 py-2 rounded border mt-1 text-black" // Add class text-black
+                            rows="3"
+                        ></textarea>
                     </div>
 
                     <div>
                         <label className="text-lg" htmlFor="fullDescription">Полное описание:</label>
-                        <textarea id="fullDescription" value={full_text} onChange={(e) => setFullDescription(e.target.value)} className="w-full px-3 py-2 rounded border mt-1" rows="5"></textarea>
+                        <textarea
+                            id="fullDescription"
+                            value={full_text}
+                            onChange={(e) => setFullDescription(e.target.value)}
+                            className="w-full px-3 py-2 rounded border mt-1 text-black" // Add class text-black
+                            rows="5"
+                        ></textarea>
                     </div>
 
                     <div>
                         <label className="text-lg" htmlFor="image">Прикрепить картинку:</label>
-                        <input type="file" id="image" accept="image/*" onChange={handleImageChange} className="mt-1" />
+                        <input
+                            type="file"
+                            id="image"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="mt-1"
+                        />
                     </div>
 
-                    <button type="submit" className="w-full bg-blue-700 text-white rounded py-2 mt-3 hover:bg-blue-600">Создать пост</button>
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-700 text-white rounded py-2 mt-3 hover:bg-blue-600"
+                    >
+                        Создать пост
+                    </button>
                 </form>
             </div>
         </div>
